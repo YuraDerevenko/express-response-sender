@@ -10,11 +10,12 @@ interface IResponseHandlerOptions {
   formatter?: Function
 }
 
-export default function responseHandler({
-  statusKey = 'status',
-  resultKey = 'result',
-  formatter = (r: any) => r
-}: IResponseHandlerOptions) {
+export default function responseHandler(options: IResponseHandlerOptions = {}) {
+  const {
+    statusKey = 'status',
+    resultKey = 'result',
+    formatter = (r: any) => r
+  } = options
   return function (req: Request, res: Response, next: NextFunction) {
     const result = res.locals[resultKey]
     const status = res.locals[statusKey]
